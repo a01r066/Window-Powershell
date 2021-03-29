@@ -3,7 +3,7 @@
 Get-Service | Sort-Object -Property Status
 
 // Get all services, excluding stoppec services and display names only
-Get-Service | where { $_.Status -eq "Running" } | select DisplayName
+Get-Service | Where-Object { $_.Status -eq "Running" } | Select-Object DisplayName
 
 // Display text, then save to text file
 "I can now use Powershell Pipe Command!!" | Out-File "C:\Temp\file.txt"
