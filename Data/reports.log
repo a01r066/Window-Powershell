@@ -1,0 +1,14 @@
+Computer Information************Physical Memory************
+Win32_PhysicalMemory: Physical Memory (Tag = "Physical Memory 0")
+Win32_PhysicalMemory: Physical Memory (Tag = "Physical Memory 2")
+*************Processor******************
+Win32_Processor: Intel64 Family 6 Model 158 Stepping 10 (DeviceID = "CPU0")
+**************Logical Disk***************
+Win32_LogicalDisk: C: (DeviceID = "C:")
+Win32_LogicalDisk: D: (DeviceID = "D:")
+Win32_LogicalDisk: E: (DeviceID = "E:")
+************Disk Drive****************
+Win32_DiskDrive: HGST HTS721010A9E630 (DeviceID = "\\.\PHYSICALDRIVE1")
+Win32_DiskDrive: WDC WDS240G1G0B-00RC30 (DeviceID = "\\.\PHYSICALDRIVE0")
+*************Operating System*************
+Win32_OperatingSystem: Microsoft Windows 10 Pro
