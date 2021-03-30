@@ -65,3 +65,73 @@ Invoke-Command -ComputerName localhost -ScriptBlock { Get-Process }
 $session = New-PSSession -ComputerName localhost
 # $Processes = Invoke-Command -Session $session { Get-Process }
 foreach($process in $Processes) { Write-Output $process.Name }
+
+# Chapter 2
+# General command
+$Location = "C:\Temp"
+Get-Command
+Get-Command -Name Get-ChildItem
+Get-Help -Name Get-ChildItem
+Get-ChildItem -Path "$($Location)\*.txt" -Recurse -Force |
+   Select-Object Name,Directory,@{Name="Owner";Expression={(Get-ACL $_.Fullname).Owner}} |
+   Export-Csv -Path "$($Location)\Data\TextFileOwner.csv" -NoTypeInformation
+
+# Martin 9700 over 7 years ago
+$Path = "C:\Temp"
+$LogPath = "C:\Temp\Logs"
+$User = "THANHMINH\CITY"
+Get-ChildItem $Path -force -Recurse | 
+    Select-Object Name,Directory,@{Name="Owner";Expression={(Get-ACL $_.Fullname).Owner}},@{Name="MB";Expression={$_.Length / 1MB}},CreationTime,LastAccessTime | 
+    Where-Object Owner -eq $User | 
+    Export-Csv $LogPath\FileFolderOwner.csv -NoTypeInformation
+
+Set-Location "$($Location)\Data"
+Get-Location
+
+# Manage disks & partitions
+# /f : fix errors on the disk. /r : locates bad sectors and recovers readable information
+chkdsk /f
+# check errors without attempting to fix errors
+chkdsk 
+# manage disks, partitions, volumns, or virtual hard disk
+diskpart
+diskpart> help
+# format disk as ntfs with volumn label FORMAT-Test
+diskpart> FORMAT F: /FS:NTFS /Q /V:FORMAT-Test
+
+# copy, xcopy, robocopy
+get-help Copy-Item
+xcopy /?
+robocopy /?
+# copy all files that have changed since May 20, 2019
+xcopy "$($Location)" \Current /D:05-20-2019
+
+# scheduled tasks
+schtasks /?
+schtasks /query /fo table
+
+systeminfo /?
+systeminfo /fo list
+
+tasklist /?
+$Location = "C:\Temp\Data"
+TASKLIST /FI "STATUS eq RUNNING" /FO CSV | Out-File "$($Location)\tasklist.csv"
+
+tasklist | more
+taskkill /?
+taskkill /pid 17756 /t /f
+
+shutdown /?
+# /s : shutdown, /r: restart, /t : xxx second
+shutdonw /r /t 30
+
+driverquery /?
+driverquery /fo table /si
+
+$Location = Get-Location
+Rename-Item "$($Location)\Data_Copied" -NewName "Copied_Data"
+New-Item "$($Location)\New Folder" -ItemType Directory
+"Sample new item" | New-Item "$($Location)\NewFolder\sample.txt" -ItemType File
+Move-Item "$($Location)\NewFolder\sample.txt" -Destination "$($Location)"
+Remove-Item "$($Location)\sample.txt"
+
