@@ -34,7 +34,7 @@ $services = Get-CimInstance -ClassName Win32_Service | Select-Object -Property S
 
 # Create File
 $report = "$($Location)\Report.log"
-New-Item $report -ItemType File -Value "Desktop Report" -Force
+New-Item $report -ItemType File -Value "Desktop Report"
 Add-Content $report "********** Desktop Details **********"
 Add-Content $report $desktop
 Add-Content $report "********** Bios Details **********"
